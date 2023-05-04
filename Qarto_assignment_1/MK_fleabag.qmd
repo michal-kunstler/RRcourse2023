@@ -1,0 +1,42 @@
+---
+title: "MK_assignment"
+format: html
+editor: visual
+---
+
+## Fleabag
+
+Fleabag is a British comedy-drama television series created and written by *Phoebe Waller-Bridge*, based on her one-woman show first performed in 2013 at the *Edinburgh Fringe Festival*. It was originally produced by *Two Brothers Pictures* for digital channel BBC Three in a co-production agreement with Amazon Studios. *Waller-Bridge* stars as the title character, a free-spirited but angry and confused young woman in London. *Sian Clifford* stars as Fleabag's sister *Claire*, while *Andrew Scott* joined the cast in the second series as *'Hot Priest'*. The protagonist frequently breaks the fourth wall to provide exposition, internal monologues, and a running commentary to the audience.
+
+![Poster](image.jpg)
+
+## Running Code
+
+```{r}
+episodes <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+ratings <- c(7.7, 7.7, 7.6, 8.0, 8.2, 8.8, 9.2, 8.4, 8.9, 8.9, 8.7, 9.3)
+
+data <- data.frame(episodes, ratings)
+```
+
+```{r warning = FALSE, echo = FALSE}
+#| fig-cap: "ratings for each episode"
+
+library(ggplot2)
+p<-ggplot(data=data, aes(x=episodes, y=ratings)) +
+  geom_bar(stat="identity") + theme_minimal()
+p
+```
+
+```{r warning = FALSE, echo = FALSE}
+#| fig-cap: "the change in ratings between episodes"
+max_index <- which.max(data$ratings)
+max_episode <- data$episodes[max_index]
+
+data$diffs <- c(NaN, diff(ratings))
+p<-ggplot(data=data, aes(x=episodes, y=diffs)) +
+  geom_bar(stat="identity") + theme_minimal()
+p
+```
+
+Out of the `r nrow(data)` episodes that aired, the best rated one was `r max_episode`, which was rated at `r max(data$ratings)`. The average rating for an episode was `r mean(data$ratings)`. As you can see, The highest jumps in ratings were for episodes that were finales of the seasons. Episodes that end seasons usually have very high or low ratings, so this is in line with expectations.
