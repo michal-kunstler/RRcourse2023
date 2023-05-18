@@ -1,6 +1,14 @@
 ---
 title: "MK_assignment"
-format: html
+format: 
+  html:
+    toc: true
+    theme: 
+      light: pulse
+      dark: slate
+    anchor-sections: true
+  pdf: 
+    toc: true
 editor: visual
 ---
 
@@ -19,6 +27,10 @@ ratings <- c(7.7, 7.7, 7.6, 8.0, 8.2, 8.8, 9.2, 8.4, 8.9, 8.9, 8.7, 9.3)
 data <- data.frame(episodes, ratings)
 ```
 
+::: {.panel-tabset}
+
+## ratings for each episode plot
+
 ```{r warning = FALSE, echo = FALSE}
 #| fig-cap: "ratings for each episode"
 
@@ -27,6 +39,8 @@ p<-ggplot(data=data, aes(x=episodes, y=ratings)) +
   geom_bar(stat="identity") + theme_minimal()
 p
 ```
+
+## the change in ratings between episodes plot
 
 ```{r warning = FALSE, echo = FALSE}
 #| fig-cap: "the change in ratings between episodes"
@@ -38,5 +52,7 @@ p<-ggplot(data=data, aes(x=episodes, y=diffs)) +
   geom_bar(stat="identity") + theme_minimal()
 p
 ```
+
+:::
 
 Out of the `r nrow(data)` episodes that aired, the best rated one was `r max_episode`, which was rated at `r max(data$ratings)`. The average rating for an episode was `r mean(data$ratings)`. As you can see, The highest jumps in ratings were for episodes that were finales of the seasons. Episodes that end seasons usually have very high or low ratings, so this is in line with expectations.
